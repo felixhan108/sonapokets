@@ -7,7 +7,7 @@ services:
     ports:
       - "2342:2342"
     environment:
-      PHOTOPRISM_ADMIN_PASSWORD: "1234"
+      PHOTOPRISM_ADMIN_PASSWORD: "${PHOTOPRISM_ADMIN_PASSWORD}"
       PHOTOPRISM_UPLOAD_NSFW: "false"
     volumes:
       - ./photos:/photoprism/originals

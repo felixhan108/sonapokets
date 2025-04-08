@@ -1,3 +1,5 @@
+ export PATH="/usr/local/bin:$PATH"
+ 
 #!/bin/bash
 set -e
 

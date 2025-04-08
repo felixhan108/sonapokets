@@ -21,8 +21,8 @@ jobs:
       - name: Add host key to known_hosts
         run: |
           mkdir -p ~/.ssh
-          ssh-keyscan -H 112.146.27.29 >> ~/.ssh/known_hosts
+          ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
 
       - name: Deploy to server
         run: |
-          ssh 112.146.27.29 "cd ~/github/sonapokets && git pull && chmod +x ./scripts/deploy.sh && ./scripts/deploy.sh"
+          ssh ${{ secrets.SERVER_IP }} "cd ~/github/sonapokets && git pull && chmod +x ./scripts/deploy.sh && ./scripts/deploy.sh"

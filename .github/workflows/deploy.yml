@@ -25,4 +25,4 @@ jobs:
 
       - name: Deploy to server
         run: |
-          ssh ${{ secrets.SERVER_IP }} "cd ~/Documents/testdocker && git pull && chmod +x ./scripts/deploy.sh && ./scripts/deploy.sh"
+          ssh ${{ secrets.SERVER_IP }} "cd ~/github/sonapokets && git pull && chmod +x ./scripts/deploy.sh && ./scripts/deploy.sh"

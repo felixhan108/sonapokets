@@ -45,6 +45,7 @@ services:
       - photoprism-network
     depends_on:
       - nginx
+      - photoprism
 
 networks:
   photoprism-network:

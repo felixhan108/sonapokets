@@ -10,6 +10,9 @@
    # 프로젝트 종속성 설치
    RUN npm install
    
+   # 빌드 캐시를 무시하는 인자
+   ARG CACHEBUST
+
    # 현재 디렉토리의 모든 파일을 컨테이너로 복사
    COPY . .
    # Next.js 프로젝트 빌드 실행

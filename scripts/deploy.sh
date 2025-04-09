@@ -6,8 +6,8 @@ set -e
 # 도커 컨테이너 업데이트
 docker-compose down
 
-# frontend 새로 빌드 (캐시 없이)
-docker-compose build frontend --no-cache
+# frontend 빌드 (package.json이 변경되지 않았다면 npm install은 캐시 사용)
+docker-compose build frontend --build-arg CACHEBUST=$(date +%s)
 
 docker-compose pull
 docker-compose up -d

@@ -5,10 +5,9 @@ set -e
 
 # 도커 컨테이너 업데이트
 docker-compose down
-
-# frontend 빌드 (package.json이 변경되지 않았다면 npm install은 캐시 사용)
+# frontend 빌드
+# npm run build가 캐쉬로 인해 계속 반영 되지 않아 (CACHEBUST=$(date +%s)을 이용해 캐쉬 사용을 불가능하게 변경)
 docker-compose build frontend --build-arg CACHEBUST=$(date +%s)
-
 docker-compose pull
 docker-compose up -d
 

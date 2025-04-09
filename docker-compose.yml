@@ -1,5 +1,3 @@
-version: "3"
-
 services:
   photoprism:
     image: photoprism/photoprism
@@ -7,39 +5,13 @@ services:
     ports:
       - "2342:2342"
     environment:
-      PHOTOPRISM_ADMIN_PASSWORD: "${PHOTOPRISM_ADMIN_PASSWORD}"
+      PHOTOPRISM_SITE_URL: "https://sonapokets.day/admin" # base URL 설정
+      PHOTOPRISM_SITE_PATH: "/admin" # 기본 경로 설정
       PHOTOPRISM_UPLOAD_NSFW: "false"
       PHOTOPRISM_API_ENABLED: "true"
-      PHOTOPRISM_API_DOCS: "true"
     volumes:
       - ./photos:/photoprism/originals
       - ./photoprism-storage:/photoprism/storage
-    networks:
-      - photoprism-network
-
-  swagger-generator:
-    image: photoprism/photoprism
-    command: make swag && make build && ./photoprism start
-    volumes:
-      - ./photos:/photoprism/originals
-      - ./photoprism-storage:/photoprism/storage
-    networks:
-      - photoprism-network
-    depends_on:
-      - photoprism
-
-  swagger-ui:
-    image: swaggerapi/swagger-ui
-    ports:
-      - "8080:8080"
-    environment:
-      SWAGGER_JSON_URL: https://sonapokets.day/admin/api/v1/swagger.json
-      CORS: "*"
-      SWAGGER_UI_CORS: "true"
-      # 추가 설정
-      SERVER_URL: "https://sonapokets.day"
-    depends_on:
-      - photoprism
     networks:
       - photoprism-network
 
@@ -62,15 +34,17 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      args:
+        CACHEBUST: ${CACHEBUST}
     ports:
       - "3000:3000"
     environment:
       - NODE_ENV=production
-      - API_URL=https://sonapokets.day/admin/api/v1
     networks:
       - photoprism-network
     depends_on:
       - photoprism
+
 networks:
   photoprism-network:
     driver: bridge

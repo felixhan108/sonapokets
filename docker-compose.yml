@@ -15,21 +15,6 @@ services:
     networks:
       - photoprism-network
 
-  nginx:
-    image: nginx
-    restart: unless-stopped
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
-      - ./nginx/ssl:/etc/nginx/ssl
-      - ./letsencrypt:/etc/letsencrypt
-    depends_on:
-      - photoprism
-    networks:
-      - photoprism-network
-
   frontend:
     build:
       context: ./frontend
@@ -44,8 +29,20 @@ services:
     networks:
       - photoprism-network
     depends_on:
-      - nginx
       - photoprism
+
+  nginx:
+    image: nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/ssl:/etc/nginx/ssl
+      - ./letsencrypt:/etc/letsencrypt
+    networks:
+      - photoprism-network
 
 networks:
   photoprism-network:

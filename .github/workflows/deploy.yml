@@ -23,6 +23,41 @@ jobs:
           mkdir -p ~/.ssh
           ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
 
-      - name: Deploy to server
+      - name: Pull latest code
         run: |
-          ssh ${{ secrets.USER_NAME }}@${{ secrets.SERVER_IP }} "cd ~/github/sonapokets && git pull && chmod +x ./scripts/deploy.sh && ./scripts/deploy.sh"
+          ssh ${{ secrets.USER_NAME }}@${{ secrets.SERVER_IP }} "cd ~/github/sonapokets && git pull"
+
+      - name: Start Nginx service first
+        run: |
+          ssh ${{ secrets.USER_NAME }}@${{ secrets.SERVER_IP }} "cd ~/github/sonapokets && docker-compose up -d nginx"
+
+      - name: Wait for Nginx to start
+        run: |
+          echo "Waiting for Nginx to start..."
+          sleep 10
+
+      - name: Start PhotoPrism service
+        run: |
+          ssh ${{ secrets.USER_NAME }}@${{ secrets.SERVER_IP }} "cd ~/github/sonapokets && docker-compose up -d photoprism"
+
+      - name: Wait for PhotoPrism to start
+        run: |
+          echo "Waiting for PhotoPrism to start..."
+          sleep 30
+
+      - name: Build and start Frontend service
+        run: |
+          ssh ${{ secrets.USER_NAME }}@${{ secrets.SERVER_IP }} "cd ~/github/sonapokets && docker-compose build frontend --build-arg CACHEBUST=$(date +%s) && docker-compose up -d frontend"
+
+      - name: Wait for Frontend to start
+        run: |
+          echo "Waiting for Frontend to start..."
+          sleep 10
+
+      - name: Restart Nginx to ensure proper connectivity
+        run: |
+          ssh ${{ secrets.USER_NAME }}@${{ secrets.SERVER_IP }} "cd ~/github/sonapokets && docker-compose restart nginx"
+
+      - name: Deployment completed
+        run: |
+          echo "Deployment completed successfully!"

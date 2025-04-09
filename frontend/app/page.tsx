@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { version } from "../package.json";
 
 // Photo 인터페이스 정의
 interface Photo {
@@ -44,7 +45,7 @@ export default async function Home() {
   let photos: Photo[] = [];
   try {
     const data = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/v1/photos?count=12&order=newest`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/v1/photos?count=156&order=newest`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -59,7 +60,16 @@ export default async function Home() {
   }
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-4 pb-20 gap-8 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+    <div className="grid items-center justify-items-center min-h-screen p-4 pb-20 gap-8 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+      <div className="row-start-1">
+        <h1 className="text-3xl font-bold text-white text-center">
+          소나의 아홉 지갑
+        </h1>
+        <h2 className="text-xl text-white/80 mt-2 text-center">
+          Sona&apos;s 9 Pokéts
+        </h2>
+        <h3 className="text-sm text-white/50 mt-2 text-center">v{version}</h3>
+      </div>
       <main className="w-full max-w-screen-lg row-start-2">
         <div className="grid grid-cols-3 gap-2 sm:gap-4">
           {photos.map((photo, index) => (

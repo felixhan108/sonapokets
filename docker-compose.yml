@@ -16,6 +16,8 @@ services:
       - ./photoprism-storage:/photoprism/storage
     networks:
       - photoprism-network
+    depends_on:
+      - photoprism
 
   swagger-generator:
     image: photoprism/photoprism

@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 
 // Photo 인터페이스 정의
@@ -46,7 +44,7 @@ export default async function Home() {
   let photos: Photo[] = [];
   try {
     const data = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/v1/photos?count=12`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/v1/photos?count=12&order=newest`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,

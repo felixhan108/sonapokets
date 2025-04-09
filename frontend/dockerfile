@@ -17,6 +17,9 @@
    # 현재 디렉토리의 모든 파일을 컨테이너로 복사
    COPY . .
 
+   # 빌드 시점에 API URL을 더미 값으로 설정
+   ENV NEXT_PUBLIC_API_URL=http://dummy-api-url
+
    # ARG를 설정 후 내용을 의도해서 계쏙 변경 후 해당 dcokfile을 실행하게 만드는 방식
    ARG CACHEBUST
    RUN echo "Cache bust: ${CACHEBUST}"

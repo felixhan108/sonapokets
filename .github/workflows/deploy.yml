@@ -50,7 +50,7 @@ jobs:
       # Nginx 서비스 시작
       - name: Start Nginx service
         run: |
-          ssh ${{ secrets.USER_NAME }}@${{ secrets.SERVER_IP }} "cd ~/github/sonapokets && docker-compose up -d nginx"
+          ssh ${{ secrets.USER_NAME }}@${{ secrets.SERVER_IP }} "cd ~/github/sonapokets && source ~/.profile && docker compose up -d nginx"
 
       # Nginx 시작 대기
       - name: Wait for Nginx to start
@@ -74,7 +74,7 @@ jobs:
 
       - name: Start PhotoPrism service
         run: |
-          ssh ${{ secrets.USER_NAME }}@${{ secrets.SERVER_IP }} "cd ~/github/sonapokets && docker-compose up -d photoprism"
+          ssh ${{ secrets.USER_NAME }}@${{ secrets.SERVER_IP }} "cd ~/github/sonapokets && source ~/.profile && docker compose up -d photoprism"
 
       - name: Wait for PhotoPrism to start
         run: |
@@ -97,7 +97,7 @@ jobs:
 
       - name: Build and start Frontend service
         run: |
-          ssh ${{ secrets.USER_NAME }}@${{ secrets.SERVER_IP }} "cd ~/github/sonapokets && docker-compose build frontend --build-arg CACHEBUST=$(date +%s) && docker-compose up -d frontend"
+          ssh ${{ secrets.USER_NAME }}@${{ secrets.SERVER_IP }} "cd ~/github/sonapokets && source ~/.profile && docker compose build frontend --build-arg CACHEBUST=$(date +%s) && docker compose up -d frontend"
 
       - name: Wait for Frontend to start
         run: |
@@ -120,7 +120,7 @@ jobs:
 
       - name: Restart Nginx to ensure proper connectivity
         run: |
-          ssh ${{ secrets.USER_NAME }}@${{ secrets.SERVER_IP }} "cd ~/github/sonapokets && docker-compose restart nginx"
+          ssh ${{ secrets.USER_NAME }}@${{ secrets.SERVER_IP }} "cd ~/github/sonapokets && source ~/.profile && docker compose restart nginx"
 
       - name: Deployment completed
         run: |

@@ -16,8 +16,6 @@ services:
       - ./photoprism-storage:/photoprism/storage
     networks:
       - photoprism-network
-    depends_on:
-      - photoprism
 
   swagger-generator:
     image: photoprism/photoprism
@@ -27,6 +25,8 @@ services:
       - ./photoprism-storage:/photoprism/storage
     networks:
       - photoprism-network
+    depends_on:
+      - photoprism
 
   swagger-ui:
     image: swaggerapi/swagger-ui

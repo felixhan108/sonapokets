@@ -43,7 +43,7 @@ services:
     networks:
       - photoprism-network
     depends_on:
-      - photoprism
+      - nginx
 
 networks:
   photoprism-network:

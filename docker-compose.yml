@@ -9,6 +9,8 @@ services:
     environment:
       PHOTOPRISM_ADMIN_PASSWORD: "${PHOTOPRISM_ADMIN_PASSWORD}"
       PHOTOPRISM_UPLOAD_NSFW: "false"
+      PHOTOPRISM_API_ENABLED: "true"
+      PHOTOPRISM_API_DOCS: "true"
     volumes:
       - ./photos:/photoprism/originals
       - ./photoprism-storage:/photoprism/storage
@@ -20,11 +22,11 @@ services:
     ports:
       - "8080:8080"
     environment:
-      SWAGGER_JSON_URL: http://photoprism:2342/api/v1/swagger.json
+      SWAGGER_JSON_URL: https://sonapokets.day/api/v1/swagger.json
       CORS: "*"
       SWAGGER_UI_CORS: "true"
       # 추가 설정
-    SERVER_URL: "https://sonapokets.day"
+      SERVER_URL: "https://sonapokets.day"
     depends_on:
       - photoprism
     networks:

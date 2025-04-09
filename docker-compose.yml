@@ -19,7 +19,7 @@ services:
 
   swagger-generator:
     image: photoprism/photoprism
-    command: make swag
+    command: make swag && make build && ./photoprism start
     volumes:
       - ./photos:/photoprism/originals
       - ./photoprism-storage:/photoprism/storage

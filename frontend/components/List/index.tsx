@@ -10,16 +10,16 @@ const List: React.FC = () => {
   if (error) return <div>오류: {error}</div>;
 
   return (
-    <div className="photo-gallery">
-      {photos.map((photo) => (
-        <Card key={photo.ID} photo={photo} />
-      ))}
-      {hasMore && (
-        <button onClick={loadMore} className="load-more-button">
-          더 보기
-        </button>
-      )}
-    </div>
+    // <div className="photo-gallery">
+    //   {photos.map((photo) => (
+    //     <Card key={photo.ID} photo={photo} />
+    //   ))}
+    //   {hasMore && (
+    //     <button onClick={loadMore} className="load-more-button">
+    //       더 보기
+    //     </button>
+    //   )}
+    // </div>
   );
 };
 

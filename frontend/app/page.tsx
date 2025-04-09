@@ -59,18 +59,18 @@ export default async function Home() {
   }
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <div className="grid grid-cols-3 gap-4">
+    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-4 pb-20 gap-8 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+      <main className="w-full max-w-screen-lg row-start-2">
+        <div className="grid grid-cols-3 gap-2 sm:gap-4">
           {photos.map((photo, index) => (
             <div
               key={photo.UID + index}
-              className="border rounded-lg overflow-hidden shadow-md"
+              className="relative aspect-square border rounded-lg overflow-hidden shadow-md"
             >
               <img
                 src={`${process.env.NEXT_PUBLIC_API_URL}/api/v1/t/${photo.Hash}/${previewToken}/tile_500`}
                 alt={photo.Title || "사진"}
-                className="w-full h-48 object-cover"
+                className="absolute w-full h-full object-cover"
               />
             </div>
           ))}

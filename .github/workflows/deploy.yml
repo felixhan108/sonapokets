@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy sonapokets
 
 on:
   push:
@@ -25,9 +25,4 @@ jobs:
 
       - name: Deploy to server
         run: |
-          ssh ${{ secrets.USER_NAME }}@${{ secrets.SERVER_IP }} "cd ~/github/sonapokets && \
-          ./scripts/deploy.sh"
-
-      - name: Deployment completed
-        run: |
-          echo "Deployment completed successfully!"
+          ssh ${{ secrets.USER_NAME }}@${{ secrets.SERVER_IP }} "cd ~/github/sonapokets && git pull && chmod +x ./scripts/deploy.sh && ./scripts/deploy.sh"

@@ -1,12 +1,5 @@
 import Image from "next/image";
 
-// 블로그 포스트 타입 정의
-interface Post {
-  id: string;
-  title: string;
-  // 필요한 다른 속성들 추가
-}
-
 // Photo 인터페이스 정의
 interface Photo {
   ID: string;

@@ -58,6 +58,19 @@ services:
     networks:
       - photoprism-network
 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - API_URL=https://sonapokets.day/api/v1
+    networks:
+      - photoprism-network
+    depends_on:
+      - photoprism
 networks:
   photoprism-network:
     driver: bridge

@@ -1,6 +1,10 @@
 # 민감한 정보 파일
 .env
 *.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 *password*
 *secret*
 
@@ -24,3 +28,23 @@ logs/
 # 임시 파일
 *.tmp
 .DS_Store
+
+# Next.js 프론트엔드 관련
+frontend/.next/
+frontend/node_modules/
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/.pnp
+frontend/.pnp.js
+frontend/coverage/
+frontend/.DS_Store
+frontend/out/
+frontend/.vercel
+frontend/.turbo
+frontend/.cache

@@ -17,6 +17,15 @@ services:
     networks:
       - photoprism-network
 
+  swagger-generator:
+    image: photoprism/photoprism
+    command: make swag
+    volumes:
+      - ./photos:/photoprism/originals
+      - ./photoprism-storage:/photoprism/storage
+    networks:
+      - photoprism-network
+
   swagger-ui:
     image: swaggerapi/swagger-ui
     ports:

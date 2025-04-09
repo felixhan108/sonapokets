@@ -14,12 +14,6 @@ services:
       - ./photoprism-storage:/photoprism/storage
     networks:
       - photoprism-network
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:2342/api/v1/status"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
 
   nginx:
     image: nginx
@@ -50,8 +44,8 @@ services:
     networks:
       - photoprism-network
     depends_on:
-      photoprism:
-        condition: service_healthy
+      - nginx
+      - photoprism
 
 networks:
   photoprism-network:

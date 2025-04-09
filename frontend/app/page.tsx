@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 
 // Photo 인터페이스 정의

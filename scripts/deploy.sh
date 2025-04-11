@@ -8,7 +8,7 @@ docker-compose down
 docker-compose pull
 docker-compose up -d
 
-# npm version patch # 0.1.0 -> 0.1.1
+npm version patch # 0.1.0 -> 0.1.1
 
 
 

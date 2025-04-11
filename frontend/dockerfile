@@ -8,13 +8,18 @@
    # 작업 디렉토리를 /app으로 설정
    WORKDIR /app
 
+   # npm 캐시 클린 및 설정
+   RUN npm cache clean --force && \
+       npm config set registry https://registry.npmjs.org/ && \
+       npm config set strict-ssl false
+
    # package.json이 있는지 확인
    RUN ls -la
 
    # package.json과 package-lock.json 파일을 컨테이너로 복사
    COPY package.json package-lock.json ./
-   # 프로젝트 종속성 설치
-   RUN npm install
+   # 프로젝트 종속성 설치 (캐시 최적화)
+   RUN npm ci --no-audit --prefer-offline
    
    # 현재 디렉토리의 모든 파일을 컨테이너로 복사
    COPY . .

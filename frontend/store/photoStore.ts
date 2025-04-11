@@ -116,11 +116,11 @@ export const usePhotoStore = create<PhotoState>((set, get) => ({
       set({ wsConnected: false });
 
       // 재연결 시도 (선택 사항)
-      setTimeout(() => {
-        if (!get().wsConnected) {
-          get().setupWebSocket(accessToken);
-        }
-      }, 3000);
+      // setTimeout(() => {
+      //   if (!get().wsConnected) {
+      //     get().setupWebSocket(accessToken);
+      //   }
+      // }, 3000);
     };
 
     ws.onerror = error => {

@@ -11,7 +11,6 @@ export default function ListPhoto() {
   const { photos, isLoading: photoLoading, fetchInitialPhotos, setupWebSocket, fetchMorePhotos } = usePhotoStore();
   const [page, setPage] = useState(1);
   const observerRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
   const scrollPosition = useRef(0);
   const [selectedPhoto, setSelectedPhoto] = useState<{ Hash: string; Title?: string } | null>(null);
 
@@ -23,7 +22,6 @@ export default function ListPhoto() {
     photos,
     photoLoading,
     page,
-    isVisible,
   });
 
   const handleObserver = useCallback(
@@ -75,9 +73,6 @@ export default function ListPhoto() {
     if (prevState.current.page !== page) {
       changes.push(`page: ${prevState.current.page} → ${page}`);
     }
-    if (prevState.current.isVisible !== isVisible) {
-      changes.push(`isVisible: ${prevState.current.isVisible} → ${isVisible}`);
-    }
 
     if (changes.length > 0) {
       console.log('📊 상태 변경:', changes.join(', '));
@@ -93,7 +88,6 @@ export default function ListPhoto() {
       photos,
       photoLoading,
       page,
-      isVisible,
     };
 
     // 현재 ref 요소 저장
@@ -119,7 +113,7 @@ export default function ListPhoto() {
         observer.unobserve(element);
       }
     };
-  }, [accessToken, fetchInitialPhotos, page, photoLoading, isVisible, handleObserver]);
+  }, [accessToken, fetchInitialPhotos, page, photoLoading, handleObserver]);
 
   useEffect(() => {
     if (accessToken && page === 1) {

@@ -17,14 +17,14 @@ docker-compose up -d
 
 
 # package.json이 변경된 경우
-CACHEBUST=$(date +%s) docker-compose build frontend
+# CACHEBUST=$(date +%s) docker-compose build frontend
 
 # 일반적인 경우
 docker-compose build frontend
 
 
 # 프론트엔드를 up -d 처럼 빌드 다시한번 더 up
-docker-compose up -d frontend
+# docker-compose up -d frontend
 # Nginx 설정 테스트
 docker-compose exec -T nginx nginx -t
 # Nginx 재시작

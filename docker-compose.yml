@@ -3,12 +3,15 @@ services:
     image: photoprism/photoprism
     restart: unless-stopped
     ports:
-      - "2342:2342"
+      - '2342:2342'
     environment:
-      PHOTOPRISM_SITE_URL: "https://sonapokets.day/admin" # base URL 설정
-      PHOTOPRISM_SITE_PATH: "/admin" # 기본 경로 설정
-      PHOTOPRISM_UPLOAD_NSFW: "false"
-      PHOTOPRISM_API_ENABLED: "true"
+      PHOTOPRISM_SITE_URL: 'https://sonapokets.day/admin' # base URL 설정
+      PHOTOPRISM_SITE_PATH: '/admin' # 기본 경로 설정
+      PHOTOPRISM_UPLOAD_NSFW: 'false'
+      PHOTOPRISM_API_ENABLED: 'true'
+      PHOTOPRISM_EXPERIMENTAL: 'true' # 실험 기능 활성화 (WebSocket 포함)
+      PHOTOPRISM_WEBSOCKET: 'true' # WebSocket 활성화
+      PHOTOPRISM_WEBSOCKET_PATH: '/api/v1/ws' # WebSocket 경로 설정
     volumes:
       - ./photos:/photoprism/originals
       - ./photoprism-storage:/photoprism/storage
@@ -22,7 +25,7 @@ services:
       args:
         CACHEBUST: ${CACHEBUST}
     ports:
-      - "3000:3000"
+      - '3000:3000'
     environment:
       - NODE_ENV=production
       - NEXT_PUBLIC_API_URL=https://sonapokets.day
@@ -35,8 +38,8 @@ services:
     image: nginx
     restart: unless-stopped
     ports:
-      - "80:80"
-      - "443:443"
+      - '80:80'
+      - '443:443'
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/ssl:/etc/nginx/ssl

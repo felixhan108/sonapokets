@@ -4,12 +4,18 @@ on:
   push:
     branches: [master]
   pull_request:
+    # opened: PR이 새로 생성될 때
+    # synchronize: PR에 새로운 커밋이 추가될 때
+    # reopened: 닫혔던 PR이 다시 열릴 때
+    types: [opened, synchronize, reopened]
     branches: [master]
   workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    # master 브랜치로의 직접 push 또는 master 브랜치를 대상으로 하는 PR인 경우에만 실행
+    if: github.event_name == 'push' || github.event.pull_request.base.ref == 'master'
     steps:
       - uses: actions/checkout@v3
 

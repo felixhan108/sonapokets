@@ -23,7 +23,7 @@ services:
       context: .
       dockerfile: frontend/Dockerfile
       args:
-        CACHEBUST: ${CACHEBUST}
+        CACHEBUST: ${CACHEBUST:-$(date +%s)}
     ports:
       - '3000:3000'
     environment:

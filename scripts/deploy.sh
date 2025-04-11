@@ -8,9 +8,6 @@ docker-compose down
 docker-compose pull
 docker-compose up -d
 
-npm version patch # 0.1.0 -> 0.1.1
-
-
 
 # npm run build가 캐쉬로 인해 계속 반영 되지 않아 (CACHEBUST=$(date +%s)을 이용해 캐쉬 사용을 불가능하게 변경)
 # docker-compose build frontend --build-arg CACHEBUST=$(date +%s)

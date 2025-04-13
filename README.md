@@ -8,3 +8,6 @@ Nginx + ssl + Photoprism + Next.js
 필요한 GitHub Secrets:
 
 - SSH_PRIVATE_KEY
+- CHATGPT_API
+- PHOTOPRISM_ADMIN_PASSWORD
+- NEXT_PUBLIC_API_URL=https://sonapokets.day

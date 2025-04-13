@@ -9,6 +9,9 @@ import { devtools } from 'zustand/middleware';
  */
 
 interface SessionState {
+  uid: string;
+  sessionId: string;
+  uploadToken: string;
   accessToken: string; // API 접근을 위한 인증 토큰
   previewToken: string; // 이미지 미리보기에 사용되는 토큰
   isLoading: boolean; // API 요청 진행 상태 (true: 로딩 중)
@@ -22,6 +25,9 @@ interface SessionState {
 export const useSessionStore = create<SessionState>()(
   devtools(
     set => ({
+      uid: '',
+      sessionId: '',
+      uploadToken: '',
       accessToken: '',
       previewToken: '',
       isLoading: false,
@@ -50,6 +56,9 @@ export const useSessionStore = create<SessionState>()(
           console.log(session);
 
           set({
+            uid: session.user.UID,
+            sessionId: session.session_id,
+            // uploadToken: session.uploadToken,
             accessToken: session.access_token,
             previewToken: session.config.previewToken,
             isLoading: false,

@@ -9,17 +9,17 @@ docker-compose down --remove-orphans
 docker-compose pull
 
 
-docker-compose build frontend
-
-docker-compose build backend
-
-
 # 애플리케이션 빌드 및 시작 (docker-compose.yml의 build 설정 사용)
 #    --build: docker-compose.yml의 build 섹션에 정의된 서비스 이미지를 빌드 (소스 변경 시 재빌드)
 #    -d: 백그라운드에서 컨테이너 실행
-docker-compose up -d photoprism nginx
-docker-compose up -d frontend
-docker-compose up -d backend
+# docker-compose up -d nginx 
+# docker-compose up -d photoprism
+# docker-compose up -d ollama
+docker-compose up -d
+
+
+# 컨테이너 재시작 그리고 빌드
+docker-compose down && docker-compose up -d --build
 
 # backend 빌드
   # -t 옵션: 이미지 이름과 태그(선택사항)를 지정합니다.
@@ -31,11 +31,7 @@ docker-compose up -d backend
 # docker-compose exec -T nginx nginx -t
 
 # Nginx 재시작
-# docker-compose restart nginx
+docker-compose restart nginx
 
 # 프론트엔드 재시작
 echo "배포 완료!"
-
-
-
-docker-compose up -d ollama

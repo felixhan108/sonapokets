@@ -19,6 +19,7 @@ export default function PhotoModal({ photo, previewToken, onClose }: PhotoModalP
           src={`/api/v1/t/${photo.Hash}/${previewToken}/tile_1200`}
           alt={photo.Title || '사진'}
           className="object-contain"
+          unoptimized
         />
         <button className="absolute top-4 right-4 text-white text-2xl hover:text-gray-300" onClick={onClose}>
           ✕

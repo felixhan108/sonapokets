@@ -47,7 +47,7 @@ services:
 
   nginx: # Nginx 서비스 설정
     image: nginx # Nginx의 공식 Docker 이미지 사용
-    restart: unless-stopped # 컨테이너가 중지되면 자동으로 재시작
+    restart: always # 컨테이너가 중지되면 자동으로 재시작
     ports:
       - '80:80' # 호스트의 80 포트를 컨테이너의 80 포트에 매핑
       - '443:443' # 호스트의 443 포트를 컨테이너의 443 포트에 매핑
@@ -66,10 +66,13 @@ services:
     volumes:
       - ollama-data:/root/.ollama
     restart: unless-stopped
+    networks:
+      - photoprism-network # photoprism-network 네트워크에 연결
 
 networks:
   photoprism-network: # 사용자 정의 네트워크 설정
     driver: bridge # 브리지 네트워크 드라이버 사용
 
 volumes:
-  ollama-data:
+  ollama-data: # 올라마 데이터 볼륨 설정
+

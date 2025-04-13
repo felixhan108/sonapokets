@@ -150,6 +150,7 @@ export default function ListPhoto() {
               src={`/api/v1/t/${photo.Hash}/${previewToken}/tile_500`}
               alt={photo.Title || '사진'}
               className="absolute w-full h-full object-cover"
+              unoptimized
             />
           </div>
         ))}

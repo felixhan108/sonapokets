@@ -1,31 +1,21 @@
- export PATH="/usr/local/bin:$PATH"
- 
+export PATH="/usr/local/bin:$PATH"
+
 #!/bin/bash
 set -e
 
-# 도커 컨테이너 업데이트
-docker-compose down
-docker-compose pull
-docker-compose up -d
+# 백엔드 서비스 빌드 및 시작
+# up : 서비스 시작
+# --build : 이미지 빌드
+# --force-recreate : 컨테이너 강제 재생성
+docker-compose up --build --force-recreate backend
 
+# 프론트엔드 서비스 빌드 및 시작
+# up : 서비스 시작
+# --build : 이미지 빌드
+# --force-recreate : 컨테이너 강제 재생성
+docker-compose up --build --force-recreate frontend
 
-# npm run build가 캐쉬로 인해 계속 반영 되지 않아 (CACHEBUST=$(date +%s)을 이용해 캐쉬 사용을 불가능하게 변경)
-# docker-compose build frontend --build-arg CACHEBUST=$(date +%s)
-
-
-# package.json이 변경된 경우
-# CACHEBUST=$(date +%s) docker-compose build frontend
-
-# 일반적인 경우
-docker-compose build frontend
-
-
-# 프론트엔드를 up -d 처럼 빌드 다시한번 더 up
-# docker-compose up -d frontend
-# Nginx 설정 테스트
-docker-compose exec -T nginx nginx -t
-# Nginx 재시작
-docker-compose restart nginx
-# 프론트엔드 재시작
-
-echo "배포 완료!"
+# Nginx 서비스 시작
+# up : 서비스 시작
+# --force-recreate : 컨테이너 강제 재생성
+docker-compose up --force-recreate nginx

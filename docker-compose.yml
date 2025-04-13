@@ -1,50 +1,75 @@
 services:
-  photoprism:
-    image: photoprism/photoprism
-    restart: unless-stopped
+  photoprism: # PhotoPrism 서비스 설정
+    image: photoprism/photoprism # PhotoPrism의 공식 Docker 이미지 사용
+    restart: unless-stopped # 컨테이너가 중지되면 자동으로 재시작
     ports:
-      - '2342:2342'
-    environment:
-      PHOTOPRISM_SITE_URL: 'https://sonapokets.day/admin' # base URL 설정
+      - '2342:2342' # 호스트의 2342 포트를 컨테이너의 2342 포트에 매핑
+    environment: # 환경 변수 설정
+      PHOTOPRISM_SITE_URL: 'https://sonapokets.day/admin' # PhotoPrism의 기본 URL
       PHOTOPRISM_SITE_PATH: '/admin' # 기본 경로 설정
-      PHOTOPRISM_UPLOAD_NSFW: 'false'
-      PHOTOPRISM_API_ENABLED: 'true'
+      PHOTOPRISM_UPLOAD_NSFW: 'false' # NSFW(성인 콘텐츠) 업로드 비활성화
+      PHOTOPRISM_API_ENABLED: 'true' # API 활성화
       PHOTOPRISM_EXPERIMENTAL: 'true' # 실험 기능 활성화 (WebSocket 포함)
       PHOTOPRISM_WEBSOCKET: 'true' # WebSocket 활성화
       PHOTOPRISM_WEBSOCKET_PATH: '/api/v1/ws' # WebSocket 경로 설정
-    volumes:
-      - ./photos:/photoprism/originals
-      - ./photoprism-storage:/photoprism/storage
+    volumes: # 호스트와 컨테이너 간의 데이터 공유 설정
+      - ./photos:/photoprism/originals # 호스트의 ./photos 디렉토리를 컨테이너의 /photoprism/originals에 마운트
+      - ./photoprism-storage:/photoprism/storage # 호스트의 ./photoprism-storage 디렉토리를 컨테이너의 /photoprism/storage에 마운트
     networks:
-      - photoprism-network
+      - photoprism-network # photoprism-network 네트워크에 연결
 
-  frontend:
+  frontend: # 프론트엔드 서비스 설정
     build:
-      context: ./frontend
-      dockerfile: Dockerfile
+      context: ./frontend # Dockerfile이 위치한 디렉토리
+      dockerfile: Dockerfile # 사용할 Dockerfile 이름
     ports:
-      - '3000:3000'
-    environment:
-      - NODE_ENV=production
-      - NEXT_PUBLIC_API_URL=https://sonapokets.day
+      - '3000:3000' # 호스트의 3000 포트를 컨테이너의 3000 포트에 매핑
+    environment: # 환경 변수 설정
+      - NODE_ENV=production # 프로덕션 환경 설정
+      - NEXT_PUBLIC_API_URL=https://sonapokets.day # 프론트엔드에서 사용할 API URL
     networks:
-      - photoprism-network
+      - photoprism-network # photoprism-network 네트워크에 연결
     depends_on:
-      - photoprism
+      - photoprism # photoprism 서비스가 먼저 시작되어야 함
 
-  nginx:
-    image: nginx
-    restart: unless-stopped
+  backend: # 백엔드 서비스 설정
+    build:
+      context: ./backend # Dockerfile이 위치한 디렉토리
+      dockerfile: Dockerfile # 사용할 Dockerfile 이름
+    env_file:
+      - .env
+    environment:
+      - CHATGPT_API=${CHATGPT_API}
     ports:
-      - '80:80'
-      - '443:443'
-    volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
-      - ./nginx/ssl:/etc/nginx/ssl
-      - ./letsencrypt:/etc/letsencrypt
+      - '8080:8080' # 호스트의 8080 포트를 컨테이너의 8080 포트에 매핑
     networks:
-      - photoprism-network
+      - photoprism-network # photoprism-network 네트워크에 연결
+
+  nginx: # Nginx 서비스 설정
+    image: nginx # Nginx의 공식 Docker 이미지 사용
+    restart: unless-stopped # 컨테이너가 중지되면 자동으로 재시작
+    ports:
+      - '80:80' # 호스트의 80 포트를 컨테이너의 80 포트에 매핑
+      - '443:443' # 호스트의 443 포트를 컨테이너의 443 포트에 매핑
+    volumes: # 호스트와 컨테이너 간의 데이터 공유 설정
+      - ./nginx/conf.d:/etc/nginx/conf.d # Nginx 설정 파일을 호스트에서 컨테이너로 마운트
+      - ./nginx/ssl:/etc/nginx/ssl # SSL 인증서를 호스트에서 컨테이너로 마운트
+      - ./letsencrypt:/etc/letsencrypt # Let's Encrypt 인증서를 호스트에서 컨테이너로 마운트
+    networks:
+      - photoprism-network # photoprism-network 네트워크에 연결
+
+  ollama:
+    image: ollama/ollama
+    container_name: ollama
+    ports:
+      - '11434:11434'
+    volumes:
+      - ollama-data:/root/.ollama
+    restart: unless-stopped
 
 networks:
-  photoprism-network:
-    driver: bridge
+  photoprism-network: # 사용자 정의 네트워크 설정
+    driver: bridge # 브리지 네트워크 드라이버 사용
+
+volumes:
+  ollama-data:

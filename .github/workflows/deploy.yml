@@ -9,6 +9,7 @@ on:
     # reopened: 닫혔던 PR이 다시 열릴 때
     types: [opened, synchronize, reopened] # PR이 생성, 업데이트, 재개될 때 트리거
     branches: [master] # master 브랜치를 대상으로 하는 PR일 때
+    if: github.event.pull_request.base.ref == 'master'
   workflow_dispatch: # 수동으로 워크플로우를 실행할 수 있도록 설정
 
 jobs:

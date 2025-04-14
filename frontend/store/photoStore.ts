@@ -111,9 +111,15 @@ export const usePhotoStore = create<PhotoState>((set, get) => ({
       }
     };
 
-    ws.onclose = () => {
+    ws.onclose = (event: CloseEvent) => {
       console.log('WebSocket 연결 종료');
       set({ wsConnected: false });
+
+      console.log('Connection closed:', {
+        code: event.code, // 오류 코드
+        reason: event.reason, // 오류 이유
+        wasClean: event.wasClean, // 정상적인 종료인지 여부
+      });
 
       // 재연결 시도 (선택 사항)
       // setTimeout(() => {

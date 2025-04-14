@@ -181,6 +181,7 @@ export default function ListPhoto() {
           currentIndex={currentPhotoIndex}
           onClose={handleClose}
           previewToken={previewToken}
+          accessToken={accessToken}
         />
       )}
     </>

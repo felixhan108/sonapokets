@@ -29,7 +29,7 @@ jobs:
           mkdir -p ~/.ssh  # .ssh 디렉토리 생성
           ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts  # 서버의 호스트 키를 known_hosts에 추가
 
-      - name: Disable Docker keychain usage
+      - name: Remove Keychain Credential Helper
         run: |
           mkdir -p ~/.docker
           echo '{}' > ~/.docker/config.json

@@ -12,7 +12,6 @@ export default function ListPhoto() {
   const [page, setPage] = useState(1);
   const observerRef = useRef<HTMLDivElement>(null);
   const scrollPosition = useRef(0);
-  const [selectedPhoto, setSelectedPhoto] = useState<{ Hash: string; Title?: string } | null>(null);
   const [isOverlayOpen, setIsOverlayOpen] = useState(false);
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
 

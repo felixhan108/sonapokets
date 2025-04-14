@@ -58,16 +58,16 @@ services:
     networks:
       - photoprism-network # photoprism-network 네트워크에 연결
 
-  ollama:
-    image: ollama/ollama
-    container_name: ollama
-    ports:
-      - '11434:11434'
-    volumes:
-      - ollama-data:/root/.ollama
-    restart: unless-stopped
-    networks:
-      - photoprism-network # photoprism-network 네트워크에 연결
+  # ollama:
+  #   image: ollama/ollama
+  #   container_name: ollama
+  #   ports:
+  #     - '11434:11434'
+  #   volumes:
+  #     - ollama-data:/root/.ollama
+  #   restart: unless-stopped
+  # networks:
+  #   - photoprism-network # photoprism-network 네트워크에 연결
 
 networks:
   photoprism-network: # 사용자 정의 네트워크 설정

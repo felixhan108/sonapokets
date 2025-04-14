@@ -12,7 +12,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/api/v1/:path*',
-        destination: 'http://localhost:2342/admin/api/v1/:path*',
+        destination: process.env.NEXT_PUBLIC_API_URL + '/api/v1/:path*',
       },
     ];
   },

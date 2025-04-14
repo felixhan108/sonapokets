@@ -1,0 +1,30 @@
+/* 화살표 숨기기 */
+.swiper-button-next,
+.swiper-button-prev {
+  display: none !important;
+}
+
+/* 화살표 영역은 클릭 가능하게 유지 */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  display: none !important;
+}
+
+/* 화살표 영역의 크기 유지 */
+.swiper-button-next,
+.swiper-button-prev {
+  width: 50% !important;
+  height: 100% !important;
+  top: 0 !important;
+  margin-top: 0 !important;
+}
+
+/* 왼쪽 화살표 영역 */
+.swiper-button-prev {
+  left: 0 !important;
+}
+
+/* 오른쪽 화살표 영역 */
+.swiper-button-next {
+  right: 0 !important;
+}

@@ -13,6 +13,22 @@ export default function ListPhoto() {
   const observerRef = useRef<HTMLDivElement>(null);
   const scrollPosition = useRef(0);
   const [selectedPhoto, setSelectedPhoto] = useState<{ Hash: string; Title?: string } | null>(null);
+  const [isOverlayOpen, setIsOverlayOpen] = useState(false);
+  const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
+
+  // 사진 클릭 시
+  const handlePhotoClick = (index: number) => {
+    console.log('🔍 사진 클릭됨:', index);
+    // 클릭된 사진의 인덱스를 상태에 저장
+    setCurrentPhotoIndex(index);
+    // 모달 열기
+    setIsOverlayOpen(true);
+  };
+
+  // 모달 닫기
+  const handleClose = () => {
+    setIsOverlayOpen(false);
+  };
 
   // 이전 상태값 저장을 위한 ref
   const prevState = useRef({
@@ -142,7 +158,7 @@ export default function ListPhoto() {
           <div
             key={photo.UID + index}
             className="relative aspect-square border rounded-lg overflow-hidden shadow-md cursor-pointer"
-            onClick={() => setSelectedPhoto(photo)}
+            onClick={() => handlePhotoClick(index)}
           >
             <Image
               width={500}
@@ -160,8 +176,13 @@ export default function ListPhoto() {
         {photoLoading ? '사진 로딩 중...' : '더 보려면 스크롤하세요'}
       </div>
 
-      {selectedPhoto && (
-        <PhotoOverlay photo={selectedPhoto} previewToken={previewToken} onClose={() => setSelectedPhoto(null)} />
+      {isOverlayOpen && (
+        <PhotoOverlay
+          photos={photos}
+          currentIndex={currentPhotoIndex}
+          onClose={handleClose}
+          previewToken={previewToken}
+        />
       )}
     </>
   );

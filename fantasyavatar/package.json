@@ -3,12 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start -p 3100",
+    "dev": "cross-env next dev --turbopack -p 3101",
+    "build": "cross-env next build",
+    "start": "cross-env next start -p 3100",
     "lint": "next lint"
   },
   "dependencies": {
+    "cross-env": "^7.0.3",
     "next": "15.3.1",
     "phaser": "^3.88.2",
     "react": "^19.0.0",

@@ -42,9 +42,9 @@ export default function MainScreen() {
          * 배경 생성하기
          */
 
-        var map = this.make.tilemap({ key: 'map' });
+        const map = this.make.tilemap({ key: 'map' });
         const tiles = map.addTilesetImage('river', 'tiles')!;
-        const layer = map.createLayer(0, tiles, 0, 0);
+        map.createLayer(0, tiles, 0, 0);
         // this.background = this.add.tileSprite(0, 0, this.scale.width, this.scale.height, 'tiles').setOrigin(0, 0);
 
         this.anims.create({

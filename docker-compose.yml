@@ -32,6 +32,15 @@ services:
     depends_on:
       - photoprism # photoprism 서비스가 먼저 시작되어야 함
 
+  fantasyavatar:
+    build:
+      context: ./fantasyavatar # Dockerfile이 위치한 디렉토리
+      dockerfile: Dockerfile # 사용할 Dockerfile 이름
+    ports:
+      - '3100:3100'
+    networks:
+      - photoprism-network
+
   backend: # 백엔드 서비스 설정
     build:
       context: ./backend # Dockerfile이 위치한 디렉토리
@@ -57,17 +66,6 @@ services:
       - ./letsencrypt:/etc/letsencrypt # Let's Encrypt 인증서를 호스트에서 컨테이너로 마운트
     networks:
       - photoprism-network # photoprism-network 네트워크에 연결
-
-  # ollama:
-  #   image: ollama/ollama
-  #   container_name: ollama
-  #   ports:
-  #     - '11434:11434'
-  #   volumes:
-  #     - ollama-data:/root/.ollama
-  #   restart: unless-stopped
-  # networks:
-  #   - photoprism-network # photoprism-network 네트워크에 연결
 
 networks:
   photoprism-network: # 사용자 정의 네트워크 설정
